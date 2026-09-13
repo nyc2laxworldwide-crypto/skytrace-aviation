@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SkyTrace Aviation</title>
+  <meta name="description" content="Live ADS-B aircraft tracking, airport weather, airport surface view, and ATC access." />
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">✈</span><div><b>SKYTRACE</b><small>REAL-WORLD AVIATION</small></div></div>
+      <div class="search-wrap">
+        <input id="airportInput" value="KBWI" maxlength="4" aria-label="Airport ICAO" placeholder="ICAO e.g. KBWI" />
+        <button id="searchBtn">OPEN AIRPORT</button>
+      </div>
+      <div class="status"><span id="liveDot" class="live-dot"></span><span id="liveText">CONNECTING</span></div>
+    </header>
+
+    <main class="workspace">
+      <aside class="left-panel panel">
+        <div class="airport-head">
+          <div><span class="eyebrow">AIRPORT</span><h1 id="airportCode">KBWI</h1></div>
+          <div class="wx-badge" id="flightCategory">--</div>
+        </div>
+        <h2 id="airportName">Baltimore/Washington International</h2>
+        <p id="airportMeta" class="muted">Loading airport information…</p>
+
+        <section>
+          <div class="section-title"><span>LIVE WEATHER</span><span id="weatherAge" class="muted">AWC</span></div>
+          <div class="wx-grid">
+            <div><small>WIND</small><strong id="wind">--</strong></div>
+            <div><small>VISIBILITY</small><strong id="visibility">--</strong></div>
+            <div><small>ALTIMETER</small><strong id="altimeter">--</strong></div>
+            <div><small>TEMP / DEW</small><strong id="temp">--</strong></div>
+          </div>
+          <div class="raw-box"><span>METAR</span><code id="metarRaw">Waiting for observation…</code></div>
+          <div class="raw-box"><span>TAF</span><code id="tafRaw">Waiting for forecast…</code></div>
+        </section>
+
+        <section>
+          <div class="section-title"><span>ATC</span><span class="muted">AUTHORIZED SOURCE</span></div>
+          <p class="small-copy">Open the matching LiveATC airport page when a feed is available. Audio is not rebroadcast inside SkyTrace.</p>
+          <button class="wide secondary" id="atcBtn">OPEN LIVE ATC ↗</button>
+        </section>
+
+        <section>
+          <div class="section-title"><span>MAP RANGE</span><span id="rangeLabel">35 NM</span></div>
+          <input id="rangeSlider" type="range" min="5" max="100" step="5" value="35" />
+          <div class="btn-row"><button id="surfaceBtn" class="secondary active">SURFACE</button><button id="areaBtn" class="secondary">AREA</button></div>
+        </section>
+      </aside>
+
+      <section class="map-stage">
+        <div id="map"></div>
+        <div class="map-toolbar">
+          <button id="refreshBtn">↻ REFRESH</button>
+          <label><input type="checkbox" id="trailToggle" checked /> TRAILS</label>
+          <label><input type="checkbox" id="labelsToggle" checked /> LABELS</label>
+        </div>
+        <div class="legend"><span><i class="legend-air"></i>AIRBORNE</span><span><i class="legend-ground"></i>GROUND</span><span>ADS-B data is informational, not for navigation</span></div>
+      </section>
+
+      <aside class="right-panel panel">
+        <div class="section-title"><span>LIVE AIRCRAFT</span><span id="aircraftCount">0</span></div>
+        <div id="aircraftList" class="aircraft-list"><div class="empty">Waiting for live traffic…</div></div>
+        <div id="detailCard" class="detail-card hidden">
+          <div class="detail-top"><div><small>SELECTED AIRCRAFT</small><h3 id="dCallsign">--</h3></div><button id="closeDetail">×</button></div>
+          <div class="detail-grid">
+            <div><small>REGISTRATION</small><b id="dReg">--</b></div>
+            <div><small>TYPE</small><b id="dType">--</b></div>
+            <div><small>ALTITUDE</small><b id="dAlt">--</b></div>
+            <div><small>GROUND SPEED</small><b id="dSpeed">--</b></div>
+            <div><small>TRACK</small><b id="dTrack">--</b></div>
+            <div><small>VERT RATE</small><b id="dRate">--</b></div>
+            <div><small>SQUAWK</small><b id="dSquawk">--</b></div>
+            <div><small>ICAO HEX</small><b id="dHex">--</b></div>
+          </div>
+          <button id="followBtn" class="wide">FOLLOW AIRCRAFT</button>
+        </div>
+      </aside>
+    </main>
+
+    <footer><span>SkyTrace Aviation MVP</span><span>Aircraft: ADSB.lol · Weather: NOAA Aviation Weather Center · Map: OpenStreetMap</span><span id="clock">--:--:--Z</span></footer>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="/app.js"></script>
+</body>
+</html>
