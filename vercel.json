@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "rewrites": [
-    { "source": "/api/aircraft", "destination": "/api/aircraft.js" },
-    { "source": "/api/weather", "destination": "/api/weather.js" },
-    { "source": "/api/airport", "destination": "/api/airport.js" }
-  ],
   "headers": [
-    { "source": "/(.*)", "headers": [{ "key": "X-Content-Type-Options", "value": "nosniff" }, { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }] }
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+      ]
+    }
   ]
 }

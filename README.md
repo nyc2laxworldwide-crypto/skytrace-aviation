@@ -14,3 +14,6 @@ Deploy the folder as a Vercel project. No secrets are required for this MVP.
 
 ## Important
 This application is informational only and must not be used as a primary source for aircraft navigation, separation, dispatch, or safety-of-flight decisions. ADS-B reception can be delayed or incomplete.
+
+## v1.1 deployment fix
+Removed incorrect API rewrites. Vercel automatically maps files in `/api/*.js` to `/api/*` serverless function routes.
